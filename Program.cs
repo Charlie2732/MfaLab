@@ -29,18 +29,16 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
     {
-        // Avstängt i övningen så att en ny eller sådd användare kan logga in
-        // direkt. E-postutskicket är en no-op här, det finns ingen brevlåda
-        // att bekräfta i.
+        
         options.SignIn.RequireConfirmedAccount = false;
         options.Stores.SchemaVersion = IdentitySchemaVersions.Version3;
 
         // TODO steg 7: aktivera kontolåsning här. Samma options-objekt som i
         // uppgiftstexten, även om vi registrerar Identity med AddIdentityCore
         // i stället för AddIdentity.
-        // options.Lockout.MaxFailedAccessAttempts = 5;
-        // options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
-        // options.Lockout.AllowedForNewUsers = true;
+        options.Lockout.MaxFailedAccessAttempts = 5;
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+        options.Lockout.AllowedForNewUsers = true;
     })
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
